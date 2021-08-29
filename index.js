@@ -45,14 +45,12 @@ app.get('/idiom', function(req, res) {
         var post = $('.section #shared_section');
         var word = post.find('#random_word').eq(0).text().replace('\r\n\t\t\t\t\t', '').replace('\r\n\t\t\t\t', '').replace('\n\t\t\t\t\t', '').replace('\n\t\t\t\t', '');
         var definition = post.find('#random_word_definition').eq(0).text().replace('\n', '');
-        var pronounceword = word;
-        var doc = nlp(pronounceword);
-        var pronounces = doc.terms().pronounce().map(o => o.pronounce).toString();
-        var pronounce = pronounces.replace(",", "");
+
         var wordOfDay = {
             idiom: decodeURI(word.charAt(0).toUpperCase() + word.slice(1)),
             definition: decodeURI(definition.charAt(0).toUpperCase() + definition.slice(1))
         }
+
         console.log("User-Agent:", rua);
         res.send(JSON.stringify(wordOfDay, null, 2));
         console.log(wordOfDay);
@@ -89,14 +87,11 @@ app.get('/question', function(req, res) {
 
         var post = $('.section #shared_section');
         var word = post.find('#random_word').eq(0).text().replace('\r\n\t\t\t\t\t', '').replace('\r\n\t\t\t\t', '').replace('\n\t\t\t\t\t', '').replace('\n\t\t\t\t', '');
-        var definition = post.find('#random_word_definition').eq(0).text().replace('\n', '');
-        var pronounceword = word;
-        var doc = nlp(pronounceword);
-        var pronounces = doc.terms().pronounce().map(o => o.pronounce).toString();
-        var pronounce = pronounces.replace(",", "");
+
         var wordOfDay = {
             question: decodeURI(word.charAt(0).toUpperCase() + word.slice(1))
         }
+
         console.log("User-Agent:", rua);
         res.send(JSON.stringify(wordOfDay, null, 2));
         console.log(wordOfDay);
@@ -135,15 +130,12 @@ app.get('/word', function(req, res) {
         var post = $('.section #shared_section');
         var word = post.find('#random_word').eq(0).text().replace('\r\n\t\t\t\t\t', '').replace('\r\n\t\t\t\t', '').replace('\n\t\t\t\t\t', '').replace('\n\t\t\t\t', '');
         var definition = post.find('#random_word_definition').eq(0).text().replace('\n', '');
-        var pronounceword = word;
-        var doc = nlp(pronounceword);
-        var pronounces = doc.terms().pronounce().map(o => o.pronounce).toString();
-        var pronounce = pronounces.replace(",", "");
+        
         var wordOfDay = {
             word: decodeURI(word.charAt(0).toUpperCase() + word.slice(1)),
             definition: decodeURI(definition.charAt(0).toUpperCase() + definition.slice(1)),
-            pronunciation: decodeURI(pronounce.charAt(0).toUpperCase() + pronounce.slice(1))
         }
+
         console.log("User-Agent:", rua);
         res.send(JSON.stringify(wordOfDay, null, 2));
         console.log(wordOfDay);
