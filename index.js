@@ -1,8 +1,5 @@
 const express = require('express');
 const cheerio = require('cheerio');
-const nlp = require('compromise');
-const nlpPronounce = require('compromise-pronounce');
-nlp.extend(nlpPronounce);
 const randomUseragent = require('random-useragent');
 const axios = require('axios');
 const rua = randomUseragent.getRandom();
