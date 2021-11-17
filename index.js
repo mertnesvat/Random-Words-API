@@ -190,6 +190,49 @@ app.get('/word', function(req, res) {
 
 });
 
+app.get('/youtube/:username', function(req, res) {
+
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+    res.header('Access-Control-Allow-Methods', 'GET');
+    res.header('X-Frame-Options', 'DENY');
+    res.header('X-XSS-Protection', '1; mode=block');
+    res.header('X-Content-Type-Options', 'nosniff');
+    res.header('Strict-Transport-Security', 'max-age=63072000');
+    res.setHeader('Content-Type', 'application/json');
+    app.disable('x-powered-by');
+
+    axios({
+        method: 'GET',
+        url: 'https://www.youtube.com/c/' + req.params.username + '/videos',
+        headers: {
+            'User-Agent': rua
+        }
+    }).then(function(response) {
+
+        console.log("Response.Data");
+        $ = cheerio.load(response.data);
+
+        var hobbies = [];
+
+        $('a.yt-simple-endpoint').each(function (i, e) {
+            hobbies[i] = $(this).text();
+        })
+
+        console.log(hobbies);
+        res.send(response.data);
+    }).catch(function(error) {
+        if (!error.response) {
+            console.log(error);                                                                                                                                        
+            console.log('API URL is Missing');
+            res.json('API URL is Missing');
+        } else {
+            console.log('Something Went Wrong - Enter the Correct API URL');
+            res.json('Something Went Wrong - Enter the Correct API URL');
+        }
+    });
+});
+
 app.use('/', function(req, res) {
     res.status(404).json({
         error: 1,
